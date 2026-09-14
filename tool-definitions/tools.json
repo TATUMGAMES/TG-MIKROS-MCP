@@ -1,0 +1,184 @@
+{
+  "version": "2026-03-09",
+  "transport": {
+    "httpMcpEndpoint": "/mcp",
+    "healthEndpoint": "/mcp/health",
+    "authCallbackEndpoint": "/mcp/auth/callback",
+    "apiProject": "TG-API-MIKROS",
+    "environments": {
+      "local": {
+        "mcpUrl": "http://localhost/TG-API-MIKROS/index.php/mcp",
+        "apiBaseUrl": "http://localhost/TG-API-MIKROS/index.php",
+        "websiteBaseUrl": "http://localhost/TG-MIKROS-WEBSITE",
+        "authCallbackUrl": "http://localhost/TG-API-MIKROS/index.php/mcp/auth/callback"
+      },
+      "staging": {
+        "mcpUrl": "https://tg-api-new-stage.uc.r.appspot.com/mcp",
+        "apiBaseUrl": "https://tg-api-new-stage.uc.r.appspot.com",
+        "websiteBaseUrl": "https://stage-developer.tatumgames.com",
+        "authCallbackUrl": "https://tg-api-new-stage.uc.r.appspot.com/mcp/auth/callback"
+      },
+      "production": {
+        "mcpUrl": "https://tg-api-new.uc.r.appspot.com/mcp",
+        "apiBaseUrl": "https://tg-api-new.uc.r.appspot.com",
+        "websiteBaseUrl": "https://developer.tatumgames.com",
+        "authCallbackUrl": "https://tg-api-new.uc.r.appspot.com/mcp/auth/callback"
+      }
+    },
+    "websiteAuthPaths": {
+      "login": "/mcp/login",
+      "signup": "/mcp/signup",
+      "verify": "/mcp/verify/{token}",
+      "forgotPassword": "/mcp/forgot-password",
+      "resetPassword": "/mcp/reset-password/{token}",
+      "success": "/mcp/success"
+    },
+    "registrySource": "application/libraries/McpToolRegistry.php",
+    "eventKnowledgeLibrary": "application/config/mcp_event_knowledge.json"
+  },
+  "tools": [
+    {
+      "name": "mikros_get_login_url",
+      "requiresAuth": false,
+      "category": "auth",
+      "description": "Get browser authorization URL for MCP access."
+    },
+    {
+      "name": "mikros_signin",
+      "requiresAuth": false,
+      "category": "auth",
+      "description": "Fallback email/password sign-in."
+    },
+    {
+      "name": "mikros_signup",
+      "requiresAuth": false,
+      "category": "auth",
+      "description": "Create MIKROS account (verification email sent)."
+    },
+    {
+      "name": "mikros_logout",
+      "requiresAuth": true,
+      "category": "auth",
+      "description": "Sign out and clear MCP session.",
+      "implementedInNodeServer": true
+    },
+    {
+      "name": "complete_profile_onboarding",
+      "requiresAuth": true,
+      "category": "auth",
+      "description": "Complete profile after MCP signup (name, company, size)."
+    },
+    {
+      "name": "list_project_create_options",
+      "requiresAuth": true,
+      "category": "project",
+      "description": "List allowed genre and gameplay options.",
+      "implementedInNodeServer": true
+    },
+    {
+      "name": "create_project",
+      "requiresAuth": true,
+      "category": "project",
+      "description": "Create project with genre and gameplay type.",
+      "implementedInNodeServer": true
+    },
+    {
+      "name": "list_projects",
+      "requiresAuth": true,
+      "category": "project",
+      "description": "List approved projects.",
+      "implementedInNodeServer": true
+    },
+    {
+      "name": "get_app_details",
+      "requiresAuth": true,
+      "category": "project",
+      "description": "Get single project details.",
+      "implementedInNodeServer": true
+    },
+    {
+      "name": "delete_project",
+      "requiresAuth": true,
+      "category": "project",
+      "description": "Delete/archive project with name confirmation."
+    },
+    {
+      "name": "delete_app",
+      "requiresAuth": true,
+      "category": "project",
+      "description": "Alias of delete_project."
+    },
+    {
+      "name": "generate_api_keys",
+      "requiresAuth": true,
+      "category": "keys",
+      "description": "Generate dev, QA, or prod API keys.",
+      "implementedInNodeServer": true
+    },
+    {
+      "name": "validate_installation",
+      "requiresAuth": true,
+      "category": "analytics",
+      "description": "Validate SDK integration and recent events."
+    },
+    {
+      "name": "recommend_events",
+      "requiresAuth": true,
+      "category": "analytics",
+      "description": "Genre-aware event recommendations."
+    },
+    {
+      "name": "add_recommended_events",
+      "requiresAuth": true,
+      "category": "analytics",
+      "description": "Add selected events to instrumentation plan."
+    },
+    {
+      "name": "list_custom_events",
+      "requiresAuth": true,
+      "category": "analytics",
+      "description": "List custom events for a project."
+    },
+    {
+      "name": "list_favorite_events",
+      "requiresAuth": true,
+      "category": "analytics",
+      "description": "List favorite event charts.",
+      "implementedInNodeServer": true
+    },
+    {
+      "name": "create_favorite_event",
+      "requiresAuth": true,
+      "category": "analytics",
+      "description": "Create favorite chart for a custom event."
+    },
+    {
+      "name": "create_campaign",
+      "requiresAuth": true,
+      "category": "marketing",
+      "description": "Create draft marketing campaign (never auto-submit)."
+    }
+  ],
+  "roadmap": [
+    {
+      "name": "integrate_mikros",
+      "category": "integration",
+      "description": "Engine-specific SDK install and configuration."
+    },
+    {
+      "name": "get_metrics",
+      "category": "analytics",
+      "description": "Retrieve KPIs (DAU, retention, revenue, etc.)."
+    },
+    {
+      "name": "get_trends",
+      "category": "analytics",
+      "description": "Industry benchmarks and genre comparisons."
+    },
+    {
+      "name": "campaign_status",
+      "category": "marketing",
+      "description": "Campaign lifecycle and review status."
+    }
+  ]
+}
