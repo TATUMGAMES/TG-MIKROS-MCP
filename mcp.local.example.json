@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "mikros": {
+      "url": "http://localhost/TG-API-MIKROS/index.php/mcp"
+    }
+  }
+}

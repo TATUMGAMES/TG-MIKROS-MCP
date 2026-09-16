@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/TATUMGAMES/TG-MIKROS-MCP/schemas/auth-required.json",
+  "title": "MCP Auth Required",
+  "description": "Returned when a tool requires MIKROS MCP authentication.",
+  "type": "object",
+  "required": ["code", "message"],
+  "properties": {
+    "code": {
+      "type": "string",
+      "const": "AUTH_REQUIRED"
+    },
+    "message": {
+      "type": "string"
+    },
+    "loginUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "Browser URL to connect an existing MIKROS account to MCP."
+    },
+    "signupUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "Browser URL to create a new MIKROS account for MCP."
+    },
+    "mcpSessionId": {
+      "type": "string",
+      "description": "Present after successful browser authorization."
+    },
+    "pendingTool": {
+      "type": "string",
+      "description": "Original tool to retry after auth."
+    },
+    "pendingArguments": {
+      "type": "object",
+      "description": "Original arguments to retry after auth."
+    },
+    "instructions": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "examples": [
+    {
+      "code": "AUTH_REQUIRED",
+      "message": "Open this authorization URL to grant the MIKROS MCP server access.",
+      "loginUrl": "https://developer.tatumgames.com/mcp/login?s=example-state",
+      "signupUrl": "https://developer.tatumgames.com/mcp/signup?s=example-state",
+      "mcpSessionId": "abc123example",
+      "instructions": [
+        "1. Open the authorization URL in your browser",
+        "2. Verify your MIKROS account to grant MCP access",
+        "3. Wait for the MCP authorization success page",
+        "4. Return here and retry your original request"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/TATUMGAMES/TG-MIKROS-MCP/schemas/profile-onboarding-required.json",
+  "title": "Profile Onboarding Required",
+  "description": "Returned when MCP signup succeeded but profile fields are missing.",
+  "type": "object",
+  "required": ["code", "missing"],
+  "properties": {
+    "code": {
+      "type": "string",
+      "const": "PROFILE_ONBOARDING_REQUIRED"
+    },
+    "missing": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["fullName", "companyName", "companySize"]
+      }
+    },
+    "profileDetails": {
+      "type": "object",
+      "properties": {
+        "fullName": { "type": "string" },
+        "companyName": { "type": "string" },
+        "companySize": { "type": "string" }
+      }
+    },
+    "companySizeOptions": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}
