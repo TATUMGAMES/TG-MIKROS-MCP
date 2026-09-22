@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "mikros": {
+      "type": "http",
+      "url": "https://tg-api-new.uc.r.appspot.com/mcp"
+    }
+  }
+}

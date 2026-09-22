@@ -66,15 +66,15 @@ Use the **API MCP URL** in your AI client configuration. Browser **auth** always
 
 ---
 
-## Cursor / AI client configuration
+## AI client configuration
 
-Point your MCP client at the **MCP JSON-RPC** URL for your environment:
+Point your MCP client at the **MCP JSON-RPC** URL for your environment. **Cursor:** [mcp.cursor.example.json](./mcp.cursor.example.json); **Claude Code:** [mcp.claude-code.example.json](./mcp.claude-code.example.json); **VS Code:** [mcp.vscode.example.json](./mcp.vscode.example.json); **Claude desktop / claude.ai:** Connectors with the URL only. See [INSTALLATION.md — AI client configuration](./INSTALLATION.md#ai-client-configuration).
 
-| Environment | Example config file |
-|-------------|---------------------|
-| **Production** (default in docs) | [mcp.cursor.example.json](./mcp.cursor.example.json) or [mcp.production.example.json](./mcp.production.example.json) |
-| Local | [mcp.local.example.json](./mcp.local.example.json) |
-| Staging | [mcp.stage.example.json](./mcp.stage.example.json) |
+| Environment | MCP URL | Example config (Cursor) |
+|-------------|---------|-------------------------|
+| **Production** | `https://tg-api-new.uc.r.appspot.com/mcp` | [mcp.cursor.example.json](./mcp.cursor.example.json) |
+| Staging | `https://tg-api-new-stage.uc.r.appspot.com/mcp` | [mcp.stage.example.json](./mcp.stage.example.json) |
+| Local | `http://localhost/TG-API-MIKROS/index.php/mcp` | [mcp.local.example.json](./mcp.local.example.json) |
 
 **Important:** The MCP server URL and the website auth host must belong to the **same environment**. Do not point a production MCP client at staging auth links (or vice versa).
 
