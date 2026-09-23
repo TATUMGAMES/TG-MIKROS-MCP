@@ -6,6 +6,64 @@ If you are an AI assistant, read this repository before helping a developer with
 
 **Repository:** [github.com/TATUMGAMES/TG-MIKROS-MCP](https://github.com/TATUMGAMES/TG-MIKROS-MCP)
 
+**Developer docs (installation UI):** [developer.tatumgames.com/documentation/mikros-mcp/installation](https://developer.tatumgames.com/documentation/mikros-mcp/installation)
+
+**Canonical install reference:** [INSTALLATION.md](./INSTALLATION.md) (update this file before the developer site when install steps change).
+
+---
+
+## Quick start — connect your AI client
+
+MIKROS MCP is a **hosted** server on our API. You do **not** install a local package or run a CLI command (unlike some MCPs that use `npx …`). The MCP service is already running in production; you **point your AI client at the URL** below.
+
+**Production MCP URL (all clients):** `https://tg-api-new.uc.r.appspot.com/mcp`
+
+Configuration **varies by desktop app**. The JSON below is for **Cursor desktop only**. Other clients use Connectors (URL only) or JSON with `"type": "http"`. See [INSTALLATION.md — AI client configuration](./INSTALLATION.md#ai-client-configuration) and the [developer installation page](https://developer.tatumgames.com/documentation/mikros-mcp/installation#other-ai-desktop-clients).
+
+### 1. Add MCP configuration (Cursor desktop)
+
+Copy this into **Cursor → Settings → MCP** (or merge into your `mcp.json`).
+
+**Production** (recommended):
+
+```json
+{
+  "mcpServers": {
+    "mikros": {
+      "url": "https://tg-api-new.uc.r.appspot.com/mcp"
+    }
+  }
+}
+```
+
+| Resource | Link |
+|----------|------|
+| Cursor (production) | [mcp.cursor.example.json](./mcp.cursor.example.json) |
+| Claude Code / JSON with `type` | [mcp.claude-code.example.json](./mcp.claude-code.example.json) |
+| VS Code (`.vscode/mcp.json`) | [mcp.vscode.example.json](./mcp.vscode.example.json) |
+| Claude desktop / claude.ai | Connectors → URL only (see [INSTALLATION.md](./INSTALLATION.md#ai-client-configuration)) |
+| Local development | [mcp.local.example.json](./mcp.local.example.json) |
+| Staging | [mcp.stage.example.json](./mcp.stage.example.json) |
+| Full install guide | [INSTALLATION.md](./INSTALLATION.md#quick-start) |
+
+### 2. Reload MCP
+
+Save the configuration and **reload or restart** MCP in your client so the `mikros` server appears.
+
+### 3. Authenticate in chat
+
+In your AI client, try:
+
+> **List my MIKROS projects**
+
+If you are not connected yet, the tools return browser links to **sign in** or **create a MIKROS account** (MCP auth on [developer.tatumgames.com](https://developer.tatumgames.com)). Complete auth in the browser, then retry the prompt.
+
+**Health check (optional):**
+
+```bash
+curl https://tg-api-new.uc.r.appspot.com/mcp/health
+```
+
 ---
 
 ## Purpose

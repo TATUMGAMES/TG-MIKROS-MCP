@@ -10,6 +10,133 @@ Connect MIKROS MCP to your AI client. The MCP **server** runs on **TG-API-MIKROS
 
 ---
 
+## Documentation map
+
+| Audience | Where to read |
+|----------|----------------|
+| **Canonical install reference (this repo)** | This file, [example JSON files](./mcp.cursor.example.json), [ENVIRONMENTS.md](./ENVIRONMENTS.md) |
+| **Guided install (copy buttons, client cards)** | [developer.tatumgames.com — Install MIKROS MCP](https://developer.tatumgames.com/documentation/mikros-mcp/installation) — [Quick start (Cursor)](https://developer.tatumgames.com/documentation/mikros-mcp/installation#quick-start), [Other AI desktop clients](https://developer.tatumgames.com/documentation/mikros-mcp/installation#other-ai-desktop-clients) |
+
+When install steps or URLs change, update **this repository first**, then mirror the same URLs and client list on the developer site.
+
+---
+
+## Quick start
+
+There is **no** one-line install command (for example, unlike a local `npx` MCP). MIKROS MCP is **remote**: add a URL to your client, reload MCP, then authenticate in chat.
+
+**Production MCP URL (every client):** `https://tg-api-new.uc.r.appspot.com/mcp`
+
+Configuration **format** depends on the app — see [AI client configuration](#ai-client-configuration) below for each desktop client.
+
+### Cursor desktop (most common copy-paste)
+
+1. **Paste** [mcp.cursor.example.json](./mcp.cursor.example.json) into **Cursor → Settings → MCP** (or your user `mcp.json`).
+2. **Reload** MCP in Cursor.
+3. **Prompt:** `List my MIKROS projects` — complete browser auth if `AUTH_REQUIRED`.
+
+```json
+{
+  "mcpServers": {
+    "mikros": {
+      "url": "https://tg-api-new.uc.r.appspot.com/mcp"
+    }
+  }
+}
+```
+
+| Environment | Cursor config file | MCP URL |
+|-------------|-------------------|---------|
+| **Production** | [mcp.cursor.example.json](./mcp.cursor.example.json) | `https://tg-api-new.uc.r.appspot.com/mcp` |
+| **Staging** | [mcp.stage.example.json](./mcp.stage.example.json) | `https://tg-api-new-stage.uc.r.appspot.com/mcp` |
+| **Local** | [mcp.local.example.json](./mcp.local.example.json) | `http://localhost/TG-API-MIKROS/index.php/mcp` |
+
+Website mirror: [Install MIKROS MCP](https://developer.tatumgames.com/documentation/mikros-mcp/installation#quick-start) (Cursor) and [Other AI desktop clients](https://developer.tatumgames.com/documentation/mikros-mcp/installation#other-ai-desktop-clients).
+
+---
+
+## AI client configuration
+
+All supported clients connect to the **same MCP endpoint** for a given environment. Only the **settings UI or JSON shape** changes.
+
+| Client | Where to configure | What to enter |
+|--------|-------------------|---------------|
+| **Cursor desktop** | Settings → MCP or `mcp.json` | [Quick start](#quick-start) — [mcp.cursor.example.json](./mcp.cursor.example.json) |
+| **Claude desktop / claude.ai (web)** | Settings → Connectors → Add custom connector (Remote / Web) | **URL only:** `https://tg-api-new.uc.r.appspot.com/mcp` |
+| **Claude Code (terminal)** | `.mcp.json` or `claude mcp add` | [mcp.claude-code.example.json](./mcp.claude-code.example.json) — requires `"type": "http"` |
+| **Windsurf and other Cursor-like editors** | MCP settings in the editor (often Settings → MCP) | Same JSON as [Quick start](#quick-start) when the editor uses `mcpServers` + `url` |
+| **VS Code (MCP extension)** | User `mcp.json` or workspace `.vscode/mcp.json` | [mcp.vscode.example.json](./mcp.vscode.example.json) — uses `"servers"` (not `mcpServers`) |
+
+### Claude desktop or claude.ai (web)
+
+**Where:** Settings → Customize (or Organization) → **Connectors** → **Add custom connector** (Remote / Web).
+
+**Format:** paste the **URL only**:
+
+```
+https://tg-api-new.uc.r.appspot.com/mcp
+```
+
+1. Start a **new chat**, enable the connector, then ask: `List my MIKROS projects`.
+
+Remote connectors are reached from Anthropic’s cloud; use **production** or **staging** HTTPS URLs, not `localhost`.
+
+### Claude Code (terminal)
+
+**Where:** project `.mcp.json` at the repo root, or `claude mcp add` in a terminal.
+
+**Format:** JSON with `"type": "http"` and `url` (Cursor [Quick start](#quick-start) uses `url` only). Example:
+
+**CLI:**
+
+```bash
+claude mcp add --transport http --scope user mikros https://tg-api-new.uc.r.appspot.com/mcp
+```
+
+**Or** merge [mcp.claude-code.example.json](./mcp.claude-code.example.json) into `.mcp.json` at your project root:
+
+```json
+{
+  "mcpServers": {
+    "mikros": {
+      "type": "http",
+      "url": "https://tg-api-new.uc.r.appspot.com/mcp"
+    }
+  }
+}
+```
+
+See [mcp.claude-code.example.json](./mcp.claude-code.example.json).
+
+### Windsurf and other Cursor-like editors
+
+**Where:** MCP settings in your editor (same idea as **Cursor → Settings → MCP**).
+
+**Format:** use the [Quick start](#quick-start) JSON when your editor accepts `mcpServers` with a remote `url`. Check your editor’s MCP documentation if tools do not appear after reload.
+
+### Visual Studio Code (MCP extension)
+
+**Where:** run **MCP: Open User Configuration** for profile-wide setup, or create **`.vscode/mcp.json`** in your project for workspace setup.
+
+**Format:** VS Code uses a top-level **`servers`** object (do not copy Cursor/Claude Code `mcpServers` unchanged). Example file: [mcp.vscode.example.json](./mcp.vscode.example.json)
+
+```json
+{
+  "servers": {
+    "mikros": {
+      "type": "http",
+      "url": "https://tg-api-new.uc.r.appspot.com/mcp"
+    }
+  }
+}
+```
+
+See the [VS Code MCP configuration reference](https://code.visualstudio.com/docs/copilot/reference/mcp-configuration).
+
+**MCP server and website auth must be the same environment** (production MCP with production `developer.tatumgames.com` auth, etc.). See [ENVIRONMENTS.md](./ENVIRONMENTS.md).
+
+---
+
 ## Prerequisites
 
 - XAMPP/Apache running (local) or access to stage/production hosts
@@ -60,30 +187,15 @@ Expected: JSON with `ok: true`, `service: tg-mikros-mcp`, `mcpPath`, `authCallba
 
 Point the client at the **API** MCP endpoint (not the website).
 
-**Cursor** — use the example file for your environment:
+Use the table in [AI client configuration](#ai-client-configuration):
 
-| Environment | Example config |
-|-------------|----------------|
-| **Production** (default in docs) | [mcp.cursor.example.json](./mcp.cursor.example.json) or [mcp.production.example.json](./mcp.production.example.json) |
-| Local | [mcp.local.example.json](./mcp.local.example.json) |
-| Staging | [mcp.stage.example.json](./mcp.stage.example.json) |
+- **Cursor:** [Quick start](#quick-start) and [mcp.cursor.example.json](./mcp.cursor.example.json).
+- **Claude desktop / claude.ai (web):** Connectors UI — production URL only.
+- **Claude Code (terminal):** [mcp.claude-code.example.json](./mcp.claude-code.example.json) or CLI in [AI client configuration](#claude-code-terminal).
+- **Windsurf and similar:** same JSON as Cursor when supported.
+- **VS Code (MCP extension):** [mcp.vscode.example.json](./mcp.vscode.example.json) (`servers`, not `mcpServers`).
 
-Production example (used in all [examples/](./examples/) samples):
-
-```json
-{
-  "mcpServers": {
-    "mikros": {
-      "url": "https://tg-api-new.uc.r.appspot.com/mcp"
-    }
-  }
-}
-```
-
-Local: `http://localhost/TG-API-MIKROS/index.php/mcp`  
-Staging: `https://tg-api-new-stage.uc.r.appspot.com/mcp`
-
-Merge into Cursor MCP settings and reload MCP. **MCP server and website auth must be the same environment.**
+Reload MCP (or restart the client) after saving.
 
 ---
 
